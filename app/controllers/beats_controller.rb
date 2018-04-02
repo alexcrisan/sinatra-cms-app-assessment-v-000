@@ -1,2 +1,3 @@
 class BeatsController < ApplicationController
+  
 end
