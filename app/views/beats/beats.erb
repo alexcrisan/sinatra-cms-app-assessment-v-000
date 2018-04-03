@@ -1,0 +1,7 @@
+<h1><%= @user.username %>'s beats:</h1>
+<br>
+<ul>
+  <% @beats.all do |beat| %>
+    <li><%= beat %></li>
+  <% end %>
+</ul

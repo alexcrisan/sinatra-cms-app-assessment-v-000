@@ -1,7 +1,4 @@
 class UsersController < ApplicationController
-  get '/users' do
-    redirect '/' #redirect to index page in application controller
-  end
 
   get '/signup' do
     erb :'/users/create_user'
@@ -14,15 +11,34 @@ class UsersController < ApplicationController
         session[:id] = @user.id
         redirect '/beats'
       else #if username does exist, redirect to login page.
-        redirect '/users/login'
+        redirect '/login'
       end
     else #if all fields aren't filled out, reload the signup page.
       redirect '/signup'
     end
   end
 
-  get '/users/login' do
+  get '/login' do
     erb :'/users/login'
+  end
+
+  post '/login' do
+    user = User.find_by(username: params[:username])
+    if user && user.authenticate(params[:password]) #if user isn't empty and the user's password matches
+      session[:user_id] = user.id #set the current session's :user_id to the user's id. (login)
+      redirect '/beats'
+    else
+      redirect '/signup' #if the user cannot be found, redirect to login page
+    end
+  end
+
+  get '/logout' do
+    if logged_in?
+      session.clear
+      redirect '/login'
+    else
+      redirect '/'
+    end
   end
 
   get '/users/:username' do #display user's beats
