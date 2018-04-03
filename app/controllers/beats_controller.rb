@@ -9,6 +9,14 @@ class BeatsController < ApplicationController
     end
   end
 
+  get '/beats/new' do
+    if logged_in?
+      
+    else
+      redirect '/login'
+    end
+  end
+
 
 
 
