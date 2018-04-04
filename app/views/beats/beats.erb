@@ -2,7 +2,7 @@
 
 <ul>
   <% @beats.each do |beat| %>
-    <li><%= beat.name %></li>
+    <li><a href="/beats/<%= beat.slug %>"><%= beat.name %></a></li>
   <% end %>
 </ul>
 

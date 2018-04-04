@@ -35,6 +35,10 @@ class BeatsController < ApplicationController
     end
   end
 
+  get '/beats/:slug' do
+    @beat = Beat.find_by_slug(params[:slug])
+    erb :'beats/show_beat'
+  end
 
 
 
