@@ -1,8 +1,19 @@
-<h1>Add a new beat:</h1>
-<form action="/beats/new" method="POST">
+<h1>Create a new beat:</h1>
+<form action="/beats" method="POST">
   <!-- Enter beat name -->
   <label for="name">Beat name: </label>
   <input type="text" name="name" id="name">
 
   <!-- Select from tags -->
+  <p>Choose from existing tags:</p>
+  <% @tags.each do |tag| %>
+    <label><%= tag.name %></label>
+    <input type="checkbox" name="tag[tag_ids][]" id="tag_<%= tag.id %>" value="<%= tag.id %>"><br>
+  <% end %>
+
+  <!-- Create a new tag -->
+  <label for="new_tag">Create a new tag:</label>
+  <input type="text" name="tag[name]" id="new_tag">
+
+  <input type="submit" value="Create">
 </form>
