@@ -1,0 +1,12 @@
+<h1><%= @user.username %>'s beat details page</h1>
+<h2>Beat name: <%= @beat.name %></h2>
+
+<h2>Associated Tags</h2>
+
+<ul>
+  <% @beat.tags.each do |tag| %>
+    <li><%= tag.name %></li>
+  <% end %>
+</ul>
+
+<p>Click <a href="/beats/<%= @beat.slug %>/edit">here</a> to edit this beat.</p>

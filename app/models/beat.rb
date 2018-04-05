@@ -5,7 +5,7 @@ class Beat < ActiveRecord::Base
 
 
   def slug
-    name.downcase.gsub(" ", "-")
+    self.name.downcase.gsub(" ", "-")
   end
 
   def self.find_by_slug(slug)

@@ -1,5 +1,1 @@
-<ul>
-  <% @beats.all do |beat| %>
-    <li><%= beat.name %></li>
-  <% end %>
-</ul>
+

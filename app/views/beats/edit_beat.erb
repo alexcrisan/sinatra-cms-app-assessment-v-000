@@ -1,0 +1,21 @@
+<h1>Beat: <%= @beat.name %></h1>
+<form action="/beats/<%= @beat.slug %>" method="POST">
+  <input type="hidden" name="_method" value="PATCH">
+
+  <!-- Edit beat name -->
+  <label for="name">Name: </label>
+  <input type="text" name="beat[name]" id="name" value="<%= @beat.name %>">
+
+  <!-- Edit tags -->
+  <h3>Existing tags:</h3>
+  <% Tag.all.each do |tag| %>
+    <label><%= tag.name %></label>
+    <input type="checkbox" name="tags[]" value="<%= tag.id %>" id="<%= tag.name %>" <%='checked' if @beat.tags.include?(tag) %>>
+  <% end %>
+
+  <!-- Create new tag -->
+  <h3>Create new tag:</h3>
+  <input type="text" name="tag" id="tag">
+
+  <input type="submit" value="Submit">
+</form>
