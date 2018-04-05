@@ -41,10 +41,10 @@ class UsersController < ApplicationController
     end
   end
 
-  get '/users/:username' do #display user's beats
-    @user = User.find_by(username: params[:username])
-    erb :'/users/show'
-  end
+  # get '/users/:username' do #display user's beats
+  #   @user = User.find_by(username: params[:username])
+  #   erb :'/users/show'
+  # end
 
 
 end
