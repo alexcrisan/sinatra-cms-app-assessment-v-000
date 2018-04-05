@@ -22,8 +22,13 @@ class BeatsController < ApplicationController
   post '/beats' do
     @beat = Beat.create(name: params[:name])
     if @beat && logged_in?
+      if params[:tag][:tag_ids] #if tag_ids hash is passed in params (it's not if no checkbox is checked)
+        params[:tag][:tag_ids].each do |tag_id| #for each tag_id in the hash
+          @beat.tags << Tag.find_by_id(tag_id) #find associaed Tag and add it to the beat's tags
+        end
+      end
       if !params[:tag][:name].empty?
-        @beat.tags << Tag.create(params[:tag][:name])
+        @beat.tags << Tag.find_or_create_by(name: params[:tag][:name])
       end
       @beat.save
       current_user.beats << @beat
@@ -52,7 +57,18 @@ class BeatsController < ApplicationController
 
   patch '/beats/:slug' do
     @beat = Beat.find_by_slug(params[:slug])
-
+    @beat.name = params[:beat][:name]
+    binding.pry
+    if params[:tag][:tag_ids].to_int.exists?
+      @beat.tags.clear
+      params[:tag][:tag_ids].each do |tag_id|
+        @beat.tags << Tag.find_by_id(tag_id)
+      end
+    end
+    if !params[:beat][:tag].empty?
+      @beat.tags << Tag.find_or_create_by(name: params[:beat][:tag])
+    end
+    @beat.save
   end
 
 

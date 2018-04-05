@@ -10,7 +10,7 @@
   <h3>Existing tags:</h3>
   <% Tag.all.each do |tag| %>
     <label><%= tag.name %></label>
-    <input type="checkbox" name="tags[]" value="<%= tag.id %>" id="<%= tag.name %>" <%='checked' if @beat.tags.include?(tag) %>>
+    <input type="checkbox" name="tag[tag_ids][]" value="<%= tag.id %>" id="<%= tag.name %>" <%='checked' if @beat.tags.include?(tag) %>>
   <% end %>
 
   <!-- Create new tag -->
