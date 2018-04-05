@@ -4,7 +4,9 @@
     <title>Beat Store</title>
   </head>
   <body>
-    <a href="/logout">Log Out</a>
+    <% if logged_in? == true %>
+      <a href="/logout">Log Out</a>
+    <% end %>
     <div class="container">
       <%= yield %>
     </div>

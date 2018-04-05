@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     if params[:username] && params[:email] && params[:password] #if all fields are filled out, proceed to block
       if !User.find_by(username: params[:username]) #if username doesn't exist, create user and redirect /beats
         @user = User.create(params)
-        session[:id] = @user.id
+        session[:user_id] = @user.id
         redirect '/beats'
       else #if username does exist, redirect to login page.
         redirect '/login'
@@ -40,11 +40,5 @@ class UsersController < ApplicationController
       redirect '/'
     end
   end
-
-  # get '/users/:username' do #display user's beats
-  #   @user = User.find_by(username: params[:username])
-  #   erb :'/users/show'
-  # end
-
 
 end

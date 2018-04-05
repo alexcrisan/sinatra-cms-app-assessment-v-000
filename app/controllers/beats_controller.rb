@@ -58,7 +58,10 @@ class BeatsController < ApplicationController
   patch '/beats/:slug' do
     @beat = Beat.find_by_slug(params[:slug])
     @beat.name = params[:beat][:name]
-    if params[:tag][:tag_ids]
+    if params[:tag][:tag_ids] == nil
+    # if params.has_key?(:tag_ids)
+      @beat.tags.clear
+    else
       @beat.tags.clear
       params[:tag][:tag_ids].each do |tag_id|
         @beat.tags << Tag.find_by_id(tag_id)
