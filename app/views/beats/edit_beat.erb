@@ -2,20 +2,20 @@
 <form action="/beats/<%= @beat.slug %>" method="POST">
   <input type="hidden" name="_method" value="PATCH">
 
-  <!-- Edit beat name -->
+  <!-- EDIT BEAT NAME -->
   <label for="name">Name: </label>
   <input type="text" name="beat[name]" id="name" value="<%= @beat.name %>">
 
-  <!-- Edit tags -->
+  <!-- EDIT TAGS CHECKBOXES-->
   <h3>Existing tags:</h3>
   <% Tag.all.each do |tag| %>
     <label><%= tag.name %></label>
     <input type="checkbox" name="tag[tag_ids][]" value="<%= tag.id %>" id="<%= tag.name %>" <%='checked' if @beat.tags.include?(tag) %>>
   <% end %>
 
-  <!-- Create new tag -->
+  <!-- CREATE NEW TAG -->
   <h3>Create new tag:</h3>
-  <input type="text" name="tag" id="tag">
+  <input type="text" name="tag[name]" id="tag">
 
   <input type="submit" value="Submit">
 </form>

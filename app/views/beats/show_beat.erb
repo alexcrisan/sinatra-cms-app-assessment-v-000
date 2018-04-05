@@ -9,4 +9,13 @@
   <% end %>
 </ul>
 
-<p>Click <a href="/beats/<%= @beat.slug %>/edit">here</a> to edit this beat.</p>
+<a href="/beats/<%= @beat.slug %>/edit">Edit beat</a>
+<br>
+<br>
+<a href="/beats">Go back to beats</a>
+<br>
+<br>
+<form action="/beats/<%= @beat.id %>/delete" method="POST">
+  <input type="hidden" id="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete">
+</form>

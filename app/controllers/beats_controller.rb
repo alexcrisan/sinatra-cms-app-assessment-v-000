@@ -58,17 +58,17 @@ class BeatsController < ApplicationController
   patch '/beats/:slug' do
     @beat = Beat.find_by_slug(params[:slug])
     @beat.name = params[:beat][:name]
-    binding.pry
-    if params[:tag][:tag_ids].to_int.exists?
+    if params[:tag][:tag_ids]
       @beat.tags.clear
       params[:tag][:tag_ids].each do |tag_id|
         @beat.tags << Tag.find_by_id(tag_id)
       end
     end
-    if !params[:beat][:tag].empty?
-      @beat.tags << Tag.find_or_create_by(name: params[:beat][:tag])
+    if !params[:tag][:name].empty?
+      @beat.tags << Tag.find_or_create_by(name: params[:tag][:name])
     end
     @beat.save
+    redirect "/beats/#{@beat.slug}"
   end
 
 
