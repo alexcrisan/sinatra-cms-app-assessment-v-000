@@ -71,6 +71,14 @@ class BeatsController < ApplicationController
     redirect "/beats/#{@beat.slug}"
   end
 
-
+  delete '/beats/:slug/delete' do
+    if logged_in? && current_user.id == session[:user_id]
+      @beat = Beat.find_by(name: params[:slug])
+      @beat.destroy
+      redirect '/beats'
+    else
+      redirect '/login'
+    end
+  end
 
 end

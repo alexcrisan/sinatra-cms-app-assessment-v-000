@@ -15,7 +15,7 @@
 <a href="/beats">Go back to beats</a>
 <br>
 <br>
-<form action="/beats/<%= @beat.id %>/delete" method="POST">
+<form action="/beats/<%= @beat.slug %>/delete" method="POST">
   <input type="hidden" id="hidden" name="_method" value="DELETE">
-  <input type="submit" value="Delete">
+  <input type="submit" value="Delete Beat!">
 </form>
