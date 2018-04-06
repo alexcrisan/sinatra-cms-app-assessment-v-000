@@ -19,7 +19,8 @@ class BeatsController < ApplicationController
       erb :'/beats/create_beat'
     else
       flash[:message] = "You must be logged in to add a beat."
-      redirect '/login'
+      # redirect '/login' #flash does not work with redirect
+      erb :'/users/login'
     end
   end
 

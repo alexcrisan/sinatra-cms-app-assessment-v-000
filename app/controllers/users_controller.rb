@@ -14,11 +14,13 @@ class UsersController < ApplicationController
         redirect '/beats'
       else #if username does exist, redirect to login page.
         flash[:message] = "Username already registered."
-        redirect '/login'
+        # redirect '/login' #flash does not work with redirect
+        erb :'/users/login'
       end
     else #if all fields aren't filled out, reload the signup page.
       flash[:message] = "Please fill out all form items."
-      redirect '/signup'
+      # redirect '/signup' #flash does not work with redirect
+      erb :'/users/create_user'
     end
   end
 
@@ -33,7 +35,8 @@ class UsersController < ApplicationController
       redirect '/beats'
     else
       flash[:message] = "User/password combination cannot be found."
-      redirect '/signup' #if the user cannot be found, redirect to signup page
+      # redirect '/signup' #if the user cannot be found, redirect to signup page #flash does not work with redirect
+      erb :'/users/create_user'
     end
   end
 

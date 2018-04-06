@@ -1,5 +1,4 @@
 require './config/environment'
-require 'rack-flash'
 
 class ApplicationController < Sinatra::Base
 
@@ -23,4 +22,5 @@ class ApplicationController < Sinatra::Base
       User.find(session[:user_id])
     end
   end
+
 end
