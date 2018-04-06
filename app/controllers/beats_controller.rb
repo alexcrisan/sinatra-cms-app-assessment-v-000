@@ -1,3 +1,5 @@
+require 'rack-flash'
+
 class BeatsController < ApplicationController
   use Rack::Flash
   get '/beats' do
