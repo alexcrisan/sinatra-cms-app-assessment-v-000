@@ -1,4 +1,5 @@
 class BeatsController < ApplicationController
+  use Rack::Flash
   get '/beats' do
     if logged_in?
       @user = current_user
@@ -15,6 +16,7 @@ class BeatsController < ApplicationController
       @tags = Tag.all
       erb :'/beats/create_beat'
     else
+      flash[:message] = "You must be logged in to add a beat."
       redirect '/login'
     end
   end
@@ -79,7 +81,7 @@ class BeatsController < ApplicationController
 
   delete '/beats/:slug/delete' do
     if logged_in? && current_user.id == session[:user_id]
-      @beat = Beat.find_by(name: params[:slug])
+      @beat = Beat.find_by_slug(params[:slug])
       @beat.destroy
       redirect '/beats'
     else
