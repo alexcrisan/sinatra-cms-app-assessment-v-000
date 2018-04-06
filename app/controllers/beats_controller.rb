@@ -63,7 +63,6 @@ class BeatsController < ApplicationController
     @beat = Beat.find_by_slug(params[:slug])
     @beat.name = params[:beat][:name]
     if params[:tag][:tag_ids] == nil
-    # if params.has_key?(:tag_ids)
       @beat.tags.clear
     else
       @beat.tags.clear
