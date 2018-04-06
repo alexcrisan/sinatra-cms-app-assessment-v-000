@@ -6,6 +6,5 @@ end
 
 use Rack::MethodOverride
 use BeatsController
-use TagsController
 use UsersController
 run ApplicationController

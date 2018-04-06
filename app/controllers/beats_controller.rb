@@ -10,7 +10,7 @@ class BeatsController < ApplicationController
   end
 
   get '/beats/new' do
-    if logged_in?
+    if logged_in? && current_user.id == session[:user_id]
       @user = current_user
       @tags = Tag.all
       erb :'/beats/create_beat'
@@ -51,8 +51,12 @@ class BeatsController < ApplicationController
   end
 
   get '/beats/:slug/edit' do
-    @beat = Beat.find_by_slug(params[:slug])
-    erb :'beats/edit_beat'
+    if logged_in? && current_user.id == session[:user_id]
+      @beat = Beat.find_by_slug(params[:slug])
+      erb :'beats/edit_beat'
+    else
+      redirect '/login'
+    end
   end
 
   patch '/beats/:slug' do
