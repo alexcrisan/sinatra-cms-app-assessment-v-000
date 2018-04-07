@@ -25,23 +25,30 @@ class BeatsController < ApplicationController
   end
 
   post '/beats' do
-    @beat = Beat.create(name: params[:name])
-    if @beat && logged_in?
-      if params[:tag][:tag_ids] #if tag_ids hash is passed in params (it's not if no checkbox is checked)
-        params[:tag][:tag_ids].each do |tag_id| #for each tag_id in the hash
-          @beat.tags << Tag.find_by_id(tag_id) #find associaed Tag and add it to the beat's tags
+    if !Beat.find_by(name: params[:name]) #if the beat doesn't exist
+      @beat = Beat.create(name: params[:name])
+      if @beat && logged_in?
+        if params[:tag][:tag_ids] #if tag_ids hash is passed in params (it's not if no checkbox is checked)
+          params[:tag][:tag_ids].each do |tag_id| #for each tag_id in the hash
+            @beat.tags << Tag.find_by_id(tag_id) #find associaed Tag and add it to the beat's tags
+          end
         end
+        if !params[:tag][:name].empty?
+          @beat.tags << Tag.find_or_create_by(name: params[:tag][:name])
+        end
+        @beat.save
+        current_user.beats << @beat
+        redirect '/beats'
+      elsif !logged_in?
+        redirect '/login'
+      else
+        redirect '/beats'
       end
-      if !params[:tag][:name].empty?
-        @beat.tags << Tag.find_or_create_by(name: params[:tag][:name])
-      end
-      @beat.save
-      current_user.beats << @beat
-      redirect '/beats'
-    elsif !logged_in?
-      redirect '/login'
     else
-      redirect '/beats'
+      @beat = Beat.find_by(name: params[:name])
+      @tags = Tag.all
+      flash[:message] = "Beat name already exists."
+      erb :'beats/create_beat'
     end
   end
 
